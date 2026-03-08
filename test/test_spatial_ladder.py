@@ -1,5 +1,5 @@
 
-from sceneflow.pipelines.spatial_ladder.pipeline_spatial_ladder import SpatialLadderPipeline
+from openworldlib.pipelines.spatial_ladder.pipeline_spatial_ladder import SpatialLadderPipeline
 
 
 MODEL_PATH = "hongxingli/SpatialLadder-3B"

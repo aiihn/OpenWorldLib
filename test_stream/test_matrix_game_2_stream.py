@@ -1,6 +1,6 @@
 from diffusers.utils import export_to_video
 from PIL import Image
-from sceneflow.pipelines.matrix_game.pipeline_matrix_game_2 import MatrixGame2Pipeline
+from openworldlib.pipelines.matrix_game.pipeline_matrix_game_2 import MatrixGame2Pipeline
 import torch
 
 

@@ -45,7 +45,7 @@ class BenchmarkLoader:
                             "metadata_path".
             local_dir:      Download destination for HuggingFace data.
                             If None, defaults to
-                            ~/.cache/sceneflow/benchmarks/<repo>.
+                            ~/.cache/openworldlib/benchmarks/<repo>.
             **kwargs:       Extra arguments forwarded to HuggingFace
                             download (e.g. token, revision).
 
@@ -214,7 +214,7 @@ def download_from_hf(
         local_dir = (
             Path.home()
             / ".cache"
-            / "sceneflow"
+            / "openworldlib"
             / "benchmarks"
             / repo_id.replace("/", "_")
         )

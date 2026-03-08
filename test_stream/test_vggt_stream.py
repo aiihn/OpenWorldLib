@@ -5,7 +5,7 @@ from diffusers.utils import export_to_video
 
 sys.path.append("..")
 
-from sceneflow.pipelines.vggt.pipeline_vggt import VGGTPipeline
+from openworldlib.pipelines.vggt.pipeline_vggt import VGGTPipeline
 
 
 DATA_PATH = "../data/test_case1/ref_image.png"

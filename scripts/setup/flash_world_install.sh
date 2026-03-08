@@ -1,6 +1,6 @@
 #!/bin/bash
 # scripts/setup/flash_world_install.sh
-# Description: Setup environment for flash world installation of SceneFlow
+# Description: Setup environment for flash world installation of OpenWorldLib
 # Usage: bash scripts/setup/flash_world_install.sh
 
 echo "=== [1/4] Installing the base environment ==="

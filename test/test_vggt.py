@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
 
-from sceneflow.pipelines.vggt.pipeline_vggt import VGGTPipeline
+from openworldlib.pipelines.vggt.pipeline_vggt import VGGTPipeline
 
 
 DATA_PATH = "../data/test_case1/ref_image.png"

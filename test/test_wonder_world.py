@@ -1,5 +1,5 @@
 from PIL import Image
-from sceneflow.pipelines.wonder_journey.pipeline_wonder_world import WonderWorldPipeline
+from openworldlib.pipelines.wonder_journey.pipeline_wonder_world import WonderWorldPipeline
 
 
 ## Initialize the WonderWorld Pipeline

@@ -1,5 +1,5 @@
 import sys
-from sceneflow.pipelines.thinksound.pipeline_thinksound import ThinkSoundPipeline, ThinkSoundArgs
+from openworldlib.pipelines.thinksound.pipeline_thinksound import ThinkSoundPipeline, ThinkSoundArgs
 import torchaudio
 from pathlib import Path
 from loguru import logger

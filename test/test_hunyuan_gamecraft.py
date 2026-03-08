@@ -1,5 +1,5 @@
 from PIL import Image
-from sceneflow.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
+from openworldlib.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
 import torch
 import imageio
 

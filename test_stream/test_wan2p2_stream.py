@@ -4,8 +4,8 @@ from typing import Optional
 import imageio
 from PIL import Image
 
-from sceneflow.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
-from sceneflow.base_models.diffusion_model.video.wan_2p2.configs import WAN_CONFIGS
+from openworldlib.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
+from openworldlib.base_models.diffusion_model.video.wan_2p2.configs import WAN_CONFIGS
 
 
 pretrained_model_path: str = "Wan-AI/Wan2.2-TI2V-5B"

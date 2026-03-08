@@ -1,5 +1,5 @@
 """
-SceneFlow Benchmark Runner
+OpenWorldLib Benchmark Runner
 """
 
 import os
@@ -27,7 +27,7 @@ ALL_PIPELINES_INFER = {**video_gen_pipe_infer, **reasoning_pipe_infer, **three_d
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="SceneFlow Benchmark Runner")
+    parser = argparse.ArgumentParser(description="OpenWorldLib Benchmark Runner")
     parser.add_argument("--task_type", type=str, required=True,
                         help="tasks_map contain various, like navigation_video_gen")
     parser.add_argument("--benchmark_name", type=str, required=True,
@@ -320,7 +320,7 @@ def main():
     model_path = parse_model_path(args.model_path)
     eval_model_path = parse_model_path(args.eval_model_path)
 
-    print("=== SceneFlow Benchmark Runner ===")
+    print("=== OpenWorldLib Benchmark Runner ===")
     print(f"  task_type      : {args.task_type}")
     print(f"  benchmark_name : {args.benchmark_name}")
     print(f"  model_type     : {args.model_type}")

@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.append("..")
 
-from src.sceneflow.pipelines.cut3r.pipeline_cut3r import CUT3RPipeline
+from openworldlib.pipelines.cut3r.pipeline_cut3r import CUT3RPipeline
 
 
 DATA_PATH = "../data/test_case/test_image_seq_case1"

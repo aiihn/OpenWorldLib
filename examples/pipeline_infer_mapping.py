@@ -41,7 +41,7 @@ def infer_hunyuan_game_craft_pipeline(pipe, input_image, interaction_signal, out
 
 def infer_lingbot_world_pipeline(pipe, input_image, interaction_signal, output_path=None, fps=None):
     num_output_frames = len(interaction_signal) * 36 + 1
-    output_video = pipeline(
+    output_video = pipe(
     images=input_image,
     num_frames=num_output_frames,
     interactions=interaction_signal
@@ -66,7 +66,7 @@ def infer_wan2p2_pipeline(pipe, prompt, image_path=None, size="1280*704", output
         fps = fps if fps is not None else 12
 
         if isinstance(output_video, torch.Tensor):
-            from sceneflow.memories.visual_synthesis.wan.wan_2p2_memeory import tensor_frame_to_pil
+            from openworldlib.memories.visual_synthesis.wan.wan_2p2_memeory import tensor_frame_to_pil
             
             if output_video.ndim == 4:
                 video_frames = []

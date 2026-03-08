@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append("..")
 
-from sceneflow.pipelines.pi3.pipeline_pi3 import Pi3Pipeline
+from openworldlib.pipelines.pi3.pipeline_pi3 import Pi3Pipeline
 
 MODE = "pi3x"  # or "pi3"
 MODEL_PATH = {"pi3x": "yyfz233/Pi3X", "pi3": "yyfz233/Pi3"}[MODE]

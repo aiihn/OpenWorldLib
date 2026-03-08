@@ -30,7 +30,7 @@ The representative methods currently being integrated are listed below. We warml
   Since interaction signals are typically variable-length inputs, the current framework is not yet optimal for high-concurrency generation. We will improve support for multi-stream generation through better scheduling, batch alignment, and throughput optimization.
 
 - **Training Framework Development**  
-  SceneFlow primarily aims to provide a standardized and extensible framework for world models and their inference pipelines, with a strong emphasis on comprehensiveness. In the next phase, we will introduce **world model training frameworks** built on several mainstream foundation models.
+  OpenWorldLib primarily aims to provide a standardized and extensible framework for world models and their inference pipelines, with a strong emphasis on comprehensiveness. In the next phase, we will introduce **world model training frameworks** built on several mainstream foundation models.
 
 - **Datasets and Tooling Release**  
   Along with the training framework, we will release corresponding datasets, preprocessing pipelines, and starter examples to help users with reproduction, fine-tuning, and further development.

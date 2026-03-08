@@ -2,7 +2,7 @@ import imageio, os
 import numpy as np
 from PIL import Image
 from tqdm import tqdm
-from sceneflow.pipelines.kling.pipeline_recammaster import ReCamMasterPipeline
+from openworldlib.pipelines.kling.pipeline_recammaster import ReCamMasterPipeline
 
 
 def save_video(frames, save_path, fps, quality=9, ffmpeg_params=None):

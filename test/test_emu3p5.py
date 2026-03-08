@@ -1,4 +1,4 @@
-from sceneflow.pipelines.emu.pipeline_emu3p5 import Emu3p5Pipeline
+from openworldlib.pipelines.emu.pipeline_emu3p5 import Emu3p5Pipeline
 from PIL import Image
 
 image_path = "./data/test_case1/ref_image.png"

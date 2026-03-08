@@ -2,9 +2,9 @@ from pathlib import Path
 from PIL import Image
 
 
-from sceneflow.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
-from sceneflow.base_models.diffusion_model.video.wan_2p2.utils.utils import save_video
-from sceneflow.base_models.diffusion_model.video.wan_2p2.configs import WAN_CONFIGS
+from openworldlib.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
+from openworldlib.base_models.diffusion_model.video.wan_2p2.utils.utils import save_video
+from openworldlib.base_models.diffusion_model.video.wan_2p2.configs import WAN_CONFIGS
 
 
 model_path: str = "Wan-AI/Wan2.2-TI2V-5B"

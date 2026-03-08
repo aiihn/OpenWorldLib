@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 sys.path.append("..")
 
-from sceneflow.pipelines.thor.pipeline_ai2thor import Ai2ThorPipeline
+from openworldlib.pipelines.thor.pipeline_ai2thor import Ai2ThorPipeline
 
 # 测试用 policy：不基于 obs 做决策，仅按顺序回放 JSON 中的高层动作 token，
 # 每个 step 返回一个 token（forward / camera / interact 等），用于验证 agent 接线与 pipeline 流程。

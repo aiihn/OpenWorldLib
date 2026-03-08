@@ -9,7 +9,7 @@ from PIL import Image
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
 
-from sceneflow.pipelines.lingbot_va.pipeline_lingbot_va import LingBotVAPipeline
+from openworldlib.pipelines.lingbot_va.pipeline_lingbot_va import LingBotVAPipeline
 
 
 MODEL_PATH = 'robbyant/lingbot-va-posttrain-robotwin'

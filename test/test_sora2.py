@@ -2,7 +2,7 @@ import sys
 sys.path.append("..") 
 import os
 import imageio
-from src.sceneflow.pipelines.sora.pipeline_sora2 import Sora2Pipeline
+from openworldlib.pipelines.sora.pipeline_sora2 import Sora2Pipeline
 import os
 import time
 

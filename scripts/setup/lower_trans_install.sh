@@ -1,6 +1,6 @@
 #!/bin/bash
 # scripts/setup/lower_trans_install.sh
-# Description: Setup environment for lower transformers installation of SceneFlow
+# Description: Setup environment for lower transformers installation of OpenWorldLib
 # Usage: bash scripts/setup/lower_trans_install.sh
 
 echo "=== [1/3] Installing the base environment ==="

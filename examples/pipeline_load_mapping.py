@@ -18,7 +18,7 @@ def _resolve_path(model_path: Union[str, Dict], key: str) -> str:
 
 
 def load_matrix_game2_pipeline(model_path: Union[str, Dict], device: str):
-    from sceneflow.pipelines.matrix_game.pipeline_matrix_game_2 import MatrixGame2Pipeline
+    from openworldlib.pipelines.matrix_game.pipeline_matrix_game_2 import MatrixGame2Pipeline
     return MatrixGame2Pipeline.from_pretrained(
         model_path=_resolve_path(model_path, "pretrained_model_path"),
         mode="universal",
@@ -27,7 +27,7 @@ def load_matrix_game2_pipeline(model_path: Union[str, Dict], device: str):
 
 
 def load_hunyuan_game_craft_pipeline(model_path: Union[str, Dict], device: str):
-    from sceneflow.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
+    from openworldlib.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
     return HunyuanGameCraftPipeline.from_pretrained(
         model_path=_resolve_path(model_path, "pretrained_model_path"),
         device=device,
@@ -36,7 +36,7 @@ def load_hunyuan_game_craft_pipeline(model_path: Union[str, Dict], device: str):
 
 def load_lingbot_world_pipeline(model_path: Union[str, Dict], device: str):
     import os
-    from sceneflow.pipelines.lingbot_world.pipeline_lingbot_world import LingBotPipeline
+    from openworldlib.pipelines.lingbot_world.pipeline_lingbot_world import LingBotPipeline
     rank = int(os.getenv("RANK", 0))
     return LingBotPipeline.from_pretrained(
         model_path=_resolve_path(model_path, "pretrained_model_path"),
@@ -52,7 +52,7 @@ def load_lingbot_world_pipeline(model_path: Union[str, Dict], device: str):
 
 
 def load_qwen2p5_omni_pipeline(model_path: Union[str, Dict], device: str):
-    from sceneflow.pipelines.qwen.pipeline_qwen2p5_omni import Qwen2p5OmniPipeline
+    from openworldlib.pipelines.qwen.pipeline_qwen2p5_omni import Qwen2p5OmniPipeline
     return Qwen2p5OmniPipeline.from_pretrained(
         pretrained_model_path=_resolve_path(model_path, "pretrained_model_path"),
         use_audio_in_video=False,
@@ -61,7 +61,7 @@ def load_qwen2p5_omni_pipeline(model_path: Union[str, Dict], device: str):
 
 
 def load_wan2p2_pipeline(model_path: Union[str, Dict], device: str):
-    from sceneflow.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
+    from openworldlib.pipelines.wan.pipeline_wan_2p2 import Wan2p2Pipeline
     return Wan2p2Pipeline.from_pretrained(
         synthesis_model_path=_resolve_path(model_path, "pretrained_model_path"),
         task="ti2v-5B",
@@ -69,7 +69,7 @@ def load_wan2p2_pipeline(model_path: Union[str, Dict], device: str):
 
 
 def load_spirit_v1p5_pipeline(model_path: Union[str, Dict], device: str, norm_stats_path: str = None):
-    from sceneflow.pipelines.spirit_ai.pipeline_spirit_v1p5 import SpiritV1p5Pipeline
+    from openworldlib.pipelines.spirit_ai.pipeline_spirit_v1p5 import SpiritV1p5Pipeline
     return SpiritV1p5Pipeline.from_pretrained(
         pretrained_model_path=_resolve_path(model_path, "pretrained_model_path"),
         norm_stats_path=norm_stats_path,
@@ -79,7 +79,7 @@ def load_spirit_v1p5_pipeline(model_path: Union[str, Dict], device: str, norm_st
 
 
 def load_cosmos_predict2p5_pipeline(model_path: Union[str, Dict], device: str, token: str = None, mode='img2world'):
-    from sceneflow.pipelines.cosmos.pipeline_cosmos_predict2p5 import CosmosPredict2p5Pipeline
+    from openworldlib.pipelines.cosmos.pipeline_cosmos_predict2p5 import CosmosPredict2p5Pipeline
     return CosmosPredict2p5Pipeline.from_pretrained(
         model_path=_resolve_path(model_path, "pretrained_model_path"),
         required_components = {

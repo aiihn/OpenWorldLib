@@ -1,5 +1,5 @@
 import os
-from sceneflow.pipelines.hunyuan_world.pipeline_hunyuan_worldplay import HunyuanWorldPlayPipeline
+from openworldlib.pipelines.hunyuan_world.pipeline_hunyuan_worldplay import HunyuanWorldPlayPipeline
 
 image_path = "./data/test_case/test_image_seq_case1/image_0001.jpg"
 prompt = "A paved pathway leads towards a stone arch bridge spanning a calm body of water."

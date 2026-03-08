@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 sys.path.append("..")
 
-from src.sceneflow.pipelines.depth_anything.pipeline_depth_anything_v1 import (  
+from openworldlib.pipelines.depth_anything.pipeline_depth_anything_v1 import (  
     DepthAnything1Pipeline,
 )
 

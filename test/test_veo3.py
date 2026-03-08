@@ -6,7 +6,7 @@ sys.path.append("..")
 
 import requests
 
-from src.sceneflow.pipelines.veo.pipeline_veo3 import Veo3Pipeline
+from openworldlib.pipelines.veo.pipeline_veo3 import Veo3Pipeline
 
 
 image_path = "./data/test_case1/ref_image.png"

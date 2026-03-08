@@ -1,6 +1,6 @@
 import sys
-from sceneflow.pipelines.mmaudio.pipeline_mmaudio import MMAudioPipeline, MMAudioArgs
-from sceneflow.synthesis.audio_generation.mmaudio.mmaudio.eval_utils import make_video
+from openworldlib.pipelines.mmaudio.pipeline_mmaudio import MMAudioPipeline, MMAudioArgs
+from openworldlib.synthesis.audio_generation.mmaudio.mmaudio.eval_utils import make_video
 from pathlib import Path
 import torchaudio
 from loguru import logger

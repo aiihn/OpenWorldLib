@@ -1,6 +1,6 @@
 #!/bin/bash
 # scripts/setup/default_install.sh
-# Description: Setup environment for default installation of SceneFlow
+# Description: Setup environment for default installation of OpenWorldLib
 # Usage: bash scripts/setup/default_install.sh
 
 echo "=== [1/3] Installing the base environment ==="

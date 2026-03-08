@@ -3,8 +3,8 @@ import torch
 import torch.distributed as dist
 from PIL import Image
 from diffusers.utils import export_to_video
-from sceneflow.pipelines.lingbot_world.pipeline_lingbot_world import LingBotPipeline
-from sceneflow.synthesis.visual_generation.lingbot.lingbot_world.distributed.util import init_distributed_group
+from openworldlib.pipelines.lingbot_world.pipeline_lingbot_world import LingBotPipeline
+from openworldlib.synthesis.visual_generation.lingbot.lingbot_world.distributed.util import init_distributed_group
 
 
 image_path = "./data/test_case1/ref_image.png"

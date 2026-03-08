@@ -2,7 +2,7 @@ import os
 import sys
 import numpy as np
 import imageio
-from sceneflow.pipelines.kling.pipeline_astra import AstraPipeline
+from openworldlib.pipelines.kling.pipeline_astra import AstraPipeline
 
 
 def export_to_video(video_frames, output_video_path, fps=20):

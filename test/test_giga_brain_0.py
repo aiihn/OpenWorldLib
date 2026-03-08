@@ -10,7 +10,7 @@ from torchvision.transforms import functional as TF
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
 
-from sceneflow.pipelines.giga_brain_0.pipeline_giga_brain_0 import GigaBrain0Pipeline
+from openworldlib.pipelines.giga_brain_0.pipeline_giga_brain_0 import GigaBrain0Pipeline
 
 
 MODEL_PATH = 'open-gigaai/GigaBrain-0-3.5B-Base'

@@ -1,7 +1,7 @@
 import torch
 import torch.distributed as dist
-from sceneflow.base_models.diffusion_model.video.wan_2p2.utils.utils import save_video
-from sceneflow.pipelines.yume.pipeline_yume import YumePipeline
+from openworldlib.base_models.diffusion_model.video.wan_2p2.utils.utils import save_video
+from openworldlib.pipelines.yume.pipeline_yume import YumePipeline
 
 
 pretrained_model_path = "stdstu123/Yume-5B-720P"  # or "stdstu123/Yume-I2V-540P"

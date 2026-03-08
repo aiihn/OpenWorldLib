@@ -1,6 +1,6 @@
 
 
-from sceneflow.pipelines.spatial_reasoner.pipeline_spatial_reasoner import SpatialReasonerPipeline
+from openworldlib.pipelines.spatial_reasoner.pipeline_spatial_reasoner import SpatialReasonerPipeline
 
 
 MODEL_PATH = "ccvl/SpatialReasoner"

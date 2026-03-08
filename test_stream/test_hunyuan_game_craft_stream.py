@@ -2,7 +2,7 @@ from PIL import Image
 import torch
 import imageio
 import os
-from sceneflow.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
+from openworldlib.pipelines.hunyuan_world.pipeline_hunyuan_game_craft import HunyuanGameCraftPipeline
 
 
 def get_rank() -> int:

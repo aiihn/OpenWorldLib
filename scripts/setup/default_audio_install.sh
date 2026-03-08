@@ -1,6 +1,6 @@
 #!/bin/bash
 # scripts/setup/default_audio_install.sh
-# Description: Setup environment for default audio installation of SceneFlow
+# Description: Setup environment for default audio installation of OpenWorldLib
 # Usage: bash scripts/setup/default_audio_install.sh
 
 echo "=== [1/3] Installing the base environment ==="

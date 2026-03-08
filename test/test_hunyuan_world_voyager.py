@@ -1,7 +1,7 @@
 # from diffusers.utils import export_to_video
 import imageio
 from PIL import Image
-from sceneflow.pipelines.hunyuan_world.pipeline_hunyuan_world_voyager import HunyuanWorldVoyagerPipeline
+from openworldlib.pipelines.hunyuan_world.pipeline_hunyuan_world_voyager import HunyuanWorldVoyagerPipeline
 
 
 image_path = "./data/test_case1/ref_image.png"

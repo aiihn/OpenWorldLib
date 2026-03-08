@@ -1,4 +1,4 @@
-from sceneflow.pipelines.qwen.pipeline_qwen2p5_omni import Qwen2p5OmniPipeline
+from openworldlib.pipelines.qwen.pipeline_qwen2p5_omni import Qwen2p5OmniPipeline
 import soundfile as sf
 
 #support more than one image/video/audio input

@@ -1,6 +1,6 @@
 from pathlib import Path
-from sceneflow.pipelines.wow.pipeline_wow import WoWPipeline, WoWArgs
-from sceneflow.base_models.diffusion_model.diffsynth import save_video
+from openworldlib.pipelines.wow.pipeline_wow import WoWPipeline, WoWArgs
+from openworldlib.base_models.diffusion_model.diffsynth import save_video
 
 
 def save_video_to_file(

@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
 
-from sceneflow.pipelines.flash_world.pipeline_flash_world import FlashWorldPipeline
+from openworldlib.pipelines.flash_world.pipeline_flash_world import FlashWorldPipeline
 
 MODEL_PATH = "imlixinyang/FlashWorld"
 WAN_MODEL_PATH = "Wan-AI/Wan2.2-TI2V-5B-Diffusers"

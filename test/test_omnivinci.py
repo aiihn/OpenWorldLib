@@ -1,4 +1,4 @@
-from sceneflow.pipelines.omnivinci.pipeline_omnivinci import OmniVinciPipeline
+from openworldlib.pipelines.omnivinci.pipeline_omnivinci import OmniVinciPipeline
 import soundfile as sf
 
 # Support more than one image/video/audio input

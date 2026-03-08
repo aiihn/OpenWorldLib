@@ -31,7 +31,7 @@ from torchvision.transforms import functional as TF
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
 
-from sceneflow.pipelines.pi0.pipeline_pi0 import PI0Pipeline
+from openworldlib.pipelines.pi0.pipeline_pi0 import PI0Pipeline
 
 # ============================================================
 # Shared constants

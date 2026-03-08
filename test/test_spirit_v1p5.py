@@ -3,7 +3,7 @@ import torch
 from PIL import Image
 from pathlib import Path
 
-from sceneflow.pipelines.spirit_ai.pipeline_spirit_v1p5 import SpiritV1p5Pipeline
+from openworldlib.pipelines.spirit_ai.pipeline_spirit_v1p5 import SpiritV1p5Pipeline
 
 
 def main():

@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 sys.path.append("..")
 
-from sceneflow.pipelines.infinite_vggt.pipeline_infinite_vggt import InfiniteVGGTPipeline
+from openworldlib.pipelines.infinite_vggt.pipeline_infinite_vggt import InfiniteVGGTPipeline
 
 # Configure before running: HuggingFace repo or local dir with .pth
 MODEL_PATH = "lch01/StreamVGGT"

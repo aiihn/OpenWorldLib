@@ -1,6 +1,6 @@
 import sys 
 sys.path.append("..") 
-from src.sceneflow.pipelines.wan.pipeline_wan_2p5 import Wan2p5Pipeline
+from openworldlib.pipelines.wan.pipeline_wan_2p5 import Wan2p5Pipeline
 import os
 import requests
 

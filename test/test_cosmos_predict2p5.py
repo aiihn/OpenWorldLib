@@ -6,7 +6,7 @@ from pathlib import Path
 
 import torch
 
-from sceneflow.pipelines.cosmos.pipeline_cosmos_predict2p5 import CosmosPredict2p5Pipeline
+from openworldlib.pipelines.cosmos.pipeline_cosmos_predict2p5 import CosmosPredict2p5Pipeline
 
 warnings.filterwarnings("ignore", category=FutureWarning)
 logging.getLogger("transformers").setLevel(logging.ERROR)
