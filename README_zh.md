@@ -1,6 +1,6 @@
 <div align="center" markdown="1">
 
-<img src="assets/logo.png" alt="openworldlib_logo" width="80%" />
+<img src="https://github.com/user-attachments/assets/1935c89a-76cb-4edc-a6ac-0c3658d347f6" alt="openworldlib_logo" width="90%" />
 
 #### A Unified Codebase for Advanced World Models <!-- omit in toc -->
 ---
@@ -142,7 +142,14 @@ OpenWorldLib
 ### Citation
 如果我们的 **OpenWorldLib** 为你带来了帮助，欢迎给我们的repo一个star🌟，并考虑引用相关论文：
 ```bibtex
-
+@misc{dataflow-team-openworldlib,
+  author = {{OpenDCAI}},
+  title = {OpenWorldLib: A Unified Codebase for Advanced World Models},
+  year = {2026},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/OpenDCAI/OpenWorldLib}}
+}
 
 @article{zeng2026research,
   title={Research on World Models Is Not Merely Injecting World Knowledge into Specific Tasks},
