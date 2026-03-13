@@ -20,7 +20,7 @@ WRIST_VIEW_PATH = 'data/test_vla/libero/wrist_view.png'
 META_PATH = 'data/test_vla/libero/meta.json'
 OUTPUT_PATH = 'outputs/giga_brain_0_demo.png'
 
-ORIGINAL_ACTION_DIM = 14
+ORIGINAL_ACTION_DIM = 7
 DELTA_MASK = [True] * ORIGINAL_ACTION_DIM
 EMBODIMENT_ID = 0
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
@@ -96,7 +96,6 @@ if __name__ == '__main__':
 
     result = pipe(images, task, state)
     pred_action = result if isinstance(result, torch.Tensor) else result[0]
-    print(pred_action)
     visualize_action(
         pred_action.detach().cpu().numpy(),
         OUTPUT_PATH,

@@ -39,8 +39,10 @@ class GigaBrain0Pipeline:
         embodiment_id: int,
         original_action_dim: int,
         device: str | torch.device | None = None,
+        weight_dtype: torch.dtype | None = None,
     ):
         self.device = device or ('cuda' if torch.cuda.is_available() else 'cpu')
+        self.weight_dtype = weight_dtype
         self.synthesis = synthesis.to(self.device)
         self.operator = operator.to(self.device)
         self.operator.set_action_dim(self.synthesis.max_action_dim)
@@ -119,7 +121,14 @@ class GigaBrain0Pipeline:
             present_img_keys=present_img_keys,
             use_quantiles=use_quantiles,
         )
-        return cls(synthesis=synthesis, operator=operator, embodiment_id=embodiment_id, original_action_dim=original_action_dim, device=device)
+        return cls(
+            synthesis=synthesis,
+            operator=operator,
+            embodiment_id=embodiment_id,
+            original_action_dim=original_action_dim,
+            device=device,
+            weight_dtype=weight_dtype,
+        )
 
     def to(self, device: str | torch.device):
         self.device = device
@@ -160,6 +169,11 @@ class GigaBrain0Pipeline:
             emb_ids = torch.tensor([self.embodiment_id], dtype=torch.long, device=self.device)
         else:
             emb_ids = torch.tensor(self.embodiment_id, dtype=torch.long, device=self.device)
+
+        # Cast float tensors to match model weight dtype to avoid dtype mismatch with torch.compile
+        if self.weight_dtype is not None:
+            proc_images = [img.to(self.weight_dtype) for img in proc_images]
+            state = state.to(self.weight_dtype)
 
         return {
             'images': proc_images,
