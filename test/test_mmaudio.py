@@ -28,7 +28,7 @@ model_path = "hkchengrex/MMAudio" # 可以提供本地路径或者hugid路径
 required_components = {
     # 可选：显式指定 44k vocoder（BigVGANv2）的 HuggingFace repo_id，如果是16k的话，读进去会被忽略
     "vocoder_ckpt_path_44k": "nvidia/bigvgan_v2_44khz_128band_512x",
-    "clip_model_path": "hf-hub:apple/DFN5B-CLIP-ViT-H-14-378",
+    "clip_model_path": "apple/DFN5B-CLIP-ViT-H-14-378",
 }
 
 pipeline = MMAudioPipeline.from_pretrained(

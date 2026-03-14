@@ -106,6 +106,9 @@ def _normalize_required_components_paths(required_components: Dict[str, str]) ->
                 if (clip_dir_p / "open_clip_config.json").exists() and (clip_dir_p / "open_clip_pytorch_model.bin").exists():
                     # open_clip 要求本地目录使用 local-dir: schema
                     out["clip_model_path"] = f"local-dir:{clip_dir_p.resolve()}"
+            else:
+                if ("/" in clip_model_path) and ("://" not in clip_model_path):
+                    out["clip_model_path"] = f"hf-hub:{clip_model_path}"
 
     # --- BigVGANv2 (44k) ---
     vocoder_44k = out.get("vocoder_ckpt_path_44k")

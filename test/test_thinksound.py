@@ -23,9 +23,9 @@ model_path = "FunAudioLLM/ThinkSound"
 
 requirement_components = {
     # 下面三项可改成本地路径或保持为 HF 模型 ID
-    "clip_backbone_id": "/your/local/metaclip/dir",  # or "facebook/metaclip-h14-fullcc2.5b"
-    "t5_model_id": "/your/local/t5/dir",             # or "google/t5-v1_1-xl"
-    "clip_processor_id": "/your/local/clip/dir",     # or "openai/clip-vit-large-patch14"
+    "clip_backbone_id": "facebook/metaclip-h14-fullcc2.5b",  # or "your path to huggingface cache"
+    "t5_model_id": "google/t5-v1_1-xl",             # or "your path to huggingface cache"
+    "clip_processor_id": "openai/clip-vit-large-patch14",     # or "your path to huggingface cache"
 }
 
 pipeline = ThinkSoundPipeline.from_pretrained(
