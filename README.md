@@ -28,17 +28,17 @@ Extension repo：[[3D generation]](https://github.com/zengbohan0217/OpenWorldLib
     <b>Hunyuan-GameCraft</b>
   </td>
   <td align="center">
-    <img src="" width="218" height="120"><br/>
+    <img src="https://github.com/user-attachments/assets/c594ac11-1fc7-45da-ab2e-426e66e927f6" width="218" height="120"><br/>
     <b>Hunyuan-Worldplay</b>
   </td>
 </tr>
 <tr>
   <td align="center">
-    <img src="" width="218" height="120"><br/>
+    <img src="https://github.com/user-attachments/assets/e07456a3-869a-408c-9755-abe896f51c0e" width="218" height="120"><br/>
     <b>Lingbot-World</b>
   </td>
   <td align="center">
-    <img src="" width="218" height="120"><br/>
+    <img src="https://github.com/user-attachments/assets/ae38060b-f82f-48b1-89b5-6344e85e8354" width="218" height="120"><br/>
     <b>YUME-1.5</b>
   </td>
   <td align="center">
@@ -56,7 +56,7 @@ Extension repo：[[3D generation]](https://github.com/zengbohan0217/OpenWorldLib
     <b>WoW</b>
   </td>
   <td align="center">
-    <img src="" width="218" height="120"><br/>
+    <img src="https://github.com/user-attachments/assets/c8ec425d-3815-4652-b2af-7e3c06e76b72" width="218" height="120"><br/>
     <b>Cosmos-Predict-2.5</b>
   </td>
 </tr>
@@ -76,6 +76,7 @@ Extension repo：[[3D generation]](https://github.com/zengbohan0217/OpenWorldLib
 </tr>
 </table>
 </div>
+
 
 We define a world model as: **A model or framework centered on perception, equipped with interaction and long-term memory capabilities, for understanding and predicting the complex world.** Accordingly, 🎓 *Multimodal Understanding*, 🤖 *Visual Action Prediction*, and 🖼️ *Visual Generation* are all sub-tasks that a world model needs to accomplish.
 
