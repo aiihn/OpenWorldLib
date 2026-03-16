@@ -4,7 +4,7 @@ sys.path.append("..")
 from openworldlib.pipelines.vggt.pipeline_vggt import VGGTPipeline
 
 
-DATA_PATH = "../data/test_case/test_image_seq_case1"
+DATA_PATH = "./data/test_case/test_image_case1/ref_image.png"
 MODEL_PATH = "facebook/VGGT-1B"
 OUTPUT_DIR = "./vggt_output"
 

@@ -4,7 +4,7 @@
 # Usage: bash scripts/setup/cut3r_install.sh
 
 echo "=== [1/3] Installing the base environment ==="
-pip install torch torchvision
+pip install torch==2.5.1 torchvision torchaudio
 
 echo "=== [2/3] Installing the requirements (3d_ply_default extra) ==="
 pip install -e ".[3d_ply_default]"
