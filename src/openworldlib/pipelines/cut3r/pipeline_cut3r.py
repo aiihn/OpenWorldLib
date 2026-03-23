@@ -182,7 +182,7 @@ class CUT3RPipeline:
     def process(
         self,
         input_: Union[str, Image.Image, np.ndarray, List[str], List[Image.Image], List[np.ndarray]],
-        interaction: Optional[Union[str, Dict[str, Any]]] = None,
+        interaction: Optional[Union[str, Dict[str, Any], List[str]]] = None,
         **kwargs
     ) -> CUT3RResult:
         """
@@ -217,6 +217,15 @@ class CUT3RPipeline:
             images_data = [images_data]
         
         # Process interaction
+        # Base mode may pass `interactions` as a list[str] (template-aligned).
+        # CUT3R's operator only consumes the latest interaction token, so we
+        # treat list inputs by taking the last non-empty token.
+        if isinstance(interaction, list):
+            if len(interaction) == 0:
+                interaction = None
+            else:
+                interaction = str(interaction[-1])
+
         if interaction is None:
             interaction_dict = {
                 "data_type": "image",
@@ -758,24 +767,50 @@ class CUT3RPipeline:
     
     def stream(
         self,
-        input_: Union[str, Image.Image, np.ndarray, List[str], List[Image.Image], List[np.ndarray]],
+        image_path: Optional[Union[str, List[str]]] = None,
+        images: Any = None,
+        interactions: Optional[Union[str, List[str]]] = None,
+        task_type: Optional[str] = None,
+        # Backward-compatible aliases
+        input_: Any = None,
         interaction: Optional[Union[str, Dict[str, Any]]] = None,
-        **kwargs
-    ) -> Generator[Union[torch.Tensor, List[str]], None, None]:
+        **kwargs,
+    ) -> Union[str, Generator[Union[torch.Tensor, List[str]], None, None]]:
         """
         Stream processing interface for real-time interactive updates.
         
         Args:
-            input_: Input image(s)
-            interaction: Interaction string or dictionary
+            image_path/images: template-aligned input (preferred)
+            interactions: template-aligned control list (preferred)
+            task_type: if "cut3r_two_stage_3dgs", runs two-stage and returns output_video_path
+            input_/interaction: backward-compatible aliases
             **kwargs: Additional arguments
             
         Yields:
             Processed results as torch.Tensor or List[str] (for compatibility with diffusers-style streaming)
         """
+        data = images if images is not None else image_path
+        if data is None:
+            data = input_
+        if data is None:
+            raise ValueError("Provide image_path/images (preferred) or input_.")
+
+        interactions_arg = interactions if interactions is not None else interaction
+
+        if task_type == "cut3r_two_stage_3dgs":
+            return self.run_two_stage_3dgs_video(
+                image_path=data,
+                interactions=interactions_arg,
+                **kwargs,
+            )
+
         # For CUT3R, streaming is equivalent to regular processing
-        # since inference is typically fast and not iterative
-        result = self.process(input_, interaction, **kwargs)
+        # since inference is typically fast and not iterative.
+        result = self.process(
+            input_=data,
+            interaction=interactions_arg,
+            **kwargs,
+        )
         
         # Yield images as tensors for streaming compatibility
         for img in result.images:
