@@ -21,6 +21,9 @@ output = pipeline(
     prompt=prompt,
     image_path=image_path,
     interactions=interaction_signal,
+    forward_speed=0.08,
+    yaw_speed_deg=3.0,
+    pitch_speed_deg=3.0,
 )
 
 save_video_path = os.path.join(output_path, "hunyuan_worldplay_demo.mp4")

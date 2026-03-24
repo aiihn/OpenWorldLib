@@ -38,6 +38,9 @@ class HunyuanWorldPlayPipeline(PipelineABC):
         overlap_group_offloading: bool = True,
         init_infer_state: bool = True,
         infer_state_kwargs: Optional[dict] = None,
+        forward_speed: float = 0.08,
+        yaw_speed_deg: float = 3.0,
+        pitch_speed_deg: float = 3.0,
         **kwargs
     ) -> 'HunyuanWorldPlayPipeline':
         """
@@ -90,7 +93,11 @@ class HunyuanWorldPlayPipeline(PipelineABC):
             action_ckpt=model_path,
             **kwargs
         )
-        operators = HunyuanWorldPlayOperator()
+        operators = HunyuanWorldPlayOperator(
+            forward_speed=forward_speed,
+            yaw_speed_deg=yaw_speed_deg,
+            pitch_speed_deg=pitch_speed_deg,
+        )
         
         return cls(
             synthesis_model=synthesis_model,
@@ -165,6 +172,9 @@ class HunyuanWorldPlayPipeline(PipelineABC):
         model_type: str = "ar",
         user_height: Optional[int] = None,
         user_width: Optional[int] = None,
+        forward_speed: Optional[float] = None,
+        yaw_speed_deg: Optional[float] = None,
+        pitch_speed_deg: Optional[float] = None,
         **kwargs
     ):
         """
@@ -194,6 +204,13 @@ class HunyuanWorldPlayPipeline(PipelineABC):
         Returns:
             HunyuanVideoPipelineOutput: 包含生成的视频帧
         """
+        if forward_speed is not None:
+            self.operators.forward_speed = forward_speed
+        if yaw_speed_deg is not None:
+            self.operators.yaw_speed_deg = yaw_speed_deg
+        if pitch_speed_deg is not None:
+            self.operators.pitch_speed_deg = pitch_speed_deg
+
         video_length = num_frames
         pose_value = interactions if interactions is not None else pose
         if pose_value is None:
