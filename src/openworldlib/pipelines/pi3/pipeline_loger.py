@@ -9,6 +9,7 @@ from PIL import Image
 from ...operators.pi3_operator import Pi3Operator
 from ...representations.point_clouds_generation.pi3.loger_representation import LoGeRRepresentation
 
+
 def _apply_camera_delta(c2w: np.ndarray, delta: List[float]) -> np.ndarray:
     """Apply a [dx,dy,dz,theta_x,theta_z] delta to a 4x4 camera-to-world matrix."""
     dx, dy, dz, theta_x, theta_z = delta
@@ -40,12 +41,7 @@ def render_point_cloud(
     focal_scale: float = 1.0,
     splat_radius: int = 3,
 ) -> Image.Image:
-    """Render a point cloud with strict z-buffer and front-to-back splatting.
-
-    Points are sorted front-to-back. Each point is splatted as a disk.
-    Only the closest point at each pixel is kept (strict z-buffer),
-    which eliminates ghosting/layering artifacts.
-    """
+    """Render a point cloud with strict z-buffer and front-to-back splatting."""
     c2w = camera_to_world.astype(np.float64)
     w2c = np.linalg.inv(c2w)
     R, t = w2c[:3, :3], w2c[:3, 3]
@@ -54,7 +50,7 @@ def render_point_cloud(
     valid = pts_cam[:, 2] > 1e-4
     pts_cam = pts_cam[valid]
     cols = colors[valid]
-    if cols.dtype == np.float64 or cols.dtype == np.float32:
+    if cols.dtype in (np.float64, np.float32):
         if cols.max() <= 1.0:
             cols = (cols * 255).clip(0, 255).astype(np.uint8)
         else:
@@ -120,24 +116,19 @@ class LoGeRResult:
     def save(self, output_dir: Optional[str] = None) -> List[str]:
         if output_dir is None:
             output_dir = "./loger_output"
-
         os.makedirs(output_dir, exist_ok=True)
         saved_files: List[str] = []
 
-        # Point cloud (PLY)
         ply_dir = os.path.join(output_dir, "point_cloud")
         os.makedirs(ply_dir, exist_ok=True)
         if "points" in self.numpy_data and "masks" in self.numpy_data and self.input_images is not None:
             try:
                 from plyfile import PlyData, PlyElement
-
                 points_b0 = self.numpy_data["points"][0]
                 masks_b0 = self.numpy_data["masks"][0].astype(bool)
                 colors = np.stack(self.input_images, axis=0)
-
                 pts = points_b0[masks_b0].astype(np.float32)
                 col = (colors[masks_b0] * 255).clip(0, 255).astype(np.uint8)
-
                 vertices = np.zeros(
                     pts.shape[0],
                     dtype=[
@@ -149,14 +140,12 @@ class LoGeRResult:
                 vertices["x"], vertices["y"], vertices["z"] = pts[:, 0], pts[:, 1], pts[:, 2]
                 vertices["nx"], vertices["ny"], vertices["nz"] = 0.0, 0.0, 0.0
                 vertices["red"], vertices["green"], vertices["blue"] = col[:, 0], col[:, 1], col[:, 2]
-
                 ply_path = os.path.join(ply_dir, "result.ply")
                 PlyData([PlyElement.describe(vertices, "vertex")]).write(ply_path)
                 saved_files.append(ply_path)
             except ImportError:
                 pass
 
-        # Raw numpy data
         raw_dir = os.path.join(output_dir, "raw_data")
         os.makedirs(raw_dir, exist_ok=True)
         for key, value in self.numpy_data.items():
@@ -165,7 +154,6 @@ class LoGeRResult:
                 np.save(npy_path, value)
                 saved_files.append(npy_path)
 
-        # Depth map visualizations
         depth_dir = os.path.join(output_dir, "depth")
         os.makedirs(depth_dir, exist_ok=True)
         for i, img in enumerate(self.depth_images):
@@ -173,7 +161,6 @@ class LoGeRResult:
             img.save(depth_path)
             saved_files.append(depth_path)
 
-        # Input RGB frames
         if self.input_images is not None and len(self.input_images) > 0:
             rgb_dir = os.path.join(output_dir, "rgb")
             os.makedirs(rgb_dir, exist_ok=True)
@@ -183,7 +170,6 @@ class LoGeRResult:
                 Image.fromarray(img_uint8).save(rgb_path)
                 saved_files.append(rgb_path)
 
-        # Camera poses
         poses_dir = os.path.join(output_dir, "camera_poses")
         os.makedirs(poses_dir, exist_ok=True)
         for i, cam in enumerate(self.camera_params):
@@ -192,21 +178,17 @@ class LoGeRResult:
                 json.dump(cam, f, indent=2)
             saved_files.append(pose_path)
 
-        # meta.json with camera_range
         meta_path = os.path.join(output_dir, "meta.json")
         with open(meta_path, "w") as f:
             json.dump({"camera_range": self.camera_range}, f, indent=2)
         saved_files.append(meta_path)
-
         return saved_files
 
 
 def _build_camera_range(camera_params: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Compute camera parameter range from a list of camera_to_world matrices."""
     n = len(camera_params)
     if n == 0:
         return {}
-
     translations = np.array([np.array(c["camera_to_world"])[:3, 3] for c in camera_params])
     return {
         "available_view_indices": list(range(n)),
@@ -287,7 +269,6 @@ class LoGeRPipeline:
             "edge_rtol": kwargs.get("edge_rtol", 0.03),
         }
 
-        # ── LoGeR / Pi3 推理控制参数透传 ──────────────────────────
         _LOGER_KEYS = (
             "window_size", "overlap_size", "num_iterations",
             "sim3", "se3", "reset_every",
@@ -355,16 +336,12 @@ class LoGeRPipeline:
         """Render a view from cached point cloud (no model inference).
 
         Args:
-            camera_view: Supports multiple formats:
-                - int: index into result.camera_params (e.g., 0, 1, 2)
-                - list of 5 floats: [dx,dy,dz,theta_x,theta_z] delta from default camera
-                - None: use the default (first) camera
-            camera_to_world: explicit 4x4 matrix (overrides camera_view if provided)
+            camera_view: int (view index), list [dx,dy,dz,theta_x,theta_z], or None (default).
+            camera_to_world: explicit 4x4 matrix (overrides camera_view if provided).
         """
         res = result or self._cached_result
         if res is None:
             raise RuntimeError("No result available. Run inference first via __call__().")
-
         if "points" not in res.numpy_data or "masks" not in res.numpy_data:
             raise RuntimeError("Result does not contain point cloud data.")
 
@@ -394,10 +371,8 @@ class LoGeRPipeline:
 
         return render_point_cloud(pts, cols, c2w, h, w)
 
-    def _render_trajectory(self, n_interp: int = 15, fps: int = 15, **kwargs) -> List[Image.Image]:
-        """Render a trajectory video by interpolating between original camera poses.
-        Returns a list of PIL.Image frames.
-        """
+    def _render_trajectory(self, n_interp: int = 15, **kwargs) -> List[Image.Image]:
+        """Render by interpolating between original camera poses."""
         res = self._cached_result
         if res is None:
             raise RuntimeError("No result available. Run reconstruction first.")
@@ -435,20 +410,20 @@ class LoGeRPipeline:
 
         Args:
             images: Image input path/list/tensor/array.
-            videos: Video input path/list. If provided, takes precedence over images.
+            videos: Video input path/list. Takes precedence over images.
             image_path: Alias for a single image path.
             video_path: Alias for a single video path.
             task_type: One of "reconstruction", "render_view", "render_trajectory".
-            interactions: Navigation signals like ["forward", "left", "camera_r"].
-                When provided with task_type="render_view", generates a video
-                with smooth transitions between each interaction.
-            camera_view: Supports int (view index) or list [dx,dy,dz,theta_x,theta_z].
+            interactions: Navigation signals e.g. ["forward", "left", "camera_r"].
+                When provided with task_type="render_view", generates a smooth
+                transition video across each interaction.
+            camera_view: int (view index) or list [dx,dy,dz,theta_x,theta_z].
             visualize_ops: Whether to generate visualizations.
 
         Returns:
-            - task_type="reconstruction": LoGeRResult
-            - task_type="render_view": PIL.Image or List[PIL.Image] (when interactions given)
-            - task_type="render_trajectory": List[PIL.Image]
+            - "reconstruction"    → LoGeRResult
+            - "render_view"       → PIL.Image, or List[PIL.Image] when interactions given
+            - "render_trajectory" → List[PIL.Image]
         """
         visual_input = videos or video_path or images or image_path
 
@@ -470,20 +445,20 @@ class LoGeRPipeline:
                     hold_img = self.render_view(camera_to_world=self._current_camera)
                     for _ in range(n_hold):
                         frames.append(hold_img)
-                    delta = self.operator.process_interaction_single(sig)
+                    # Use get_interaction + process_interaction (same as Pi3)
+                    self.operator.get_interaction([sig])
+                    delta = self.operator.process_interaction()
                     sub_delta = [d / n_move for d in delta]
                     for _ in range(n_move):
                         self._current_camera = _apply_camera_delta(
                             self._current_camera, sub_delta
                         )
-                        frames.append(self.render_view(
-                            camera_to_world=self._current_camera
-                        ))
+                        frames.append(self.render_view(camera_to_world=self._current_camera))
                 hold_img = self.render_view(camera_to_world=self._current_camera)
                 for _ in range(n_hold):
                     frames.append(hold_img)
                 return frames
-            return self.render_view(camera_view=camera_view, **kwargs)
+            return self.render_view(camera_view=camera_view)
 
         elif task_type == "render_trajectory":
             return self._render_trajectory(**kwargs)
@@ -496,31 +471,96 @@ class LoGeRPipeline:
 
     def stream(
         self,
-        interaction_signal: Union[str, List[str]],
-        result: Optional[LoGeRResult] = None,
+        images: Optional[Union[str, np.ndarray, List[str], List[np.ndarray]]] = None,
+        videos: Optional[Union[str, List[str]]] = None,
+        image_path: Optional[str] = None,
+        video_path: Optional[str] = None,
+        task_type: str = "render_view",
+        interactions: Optional[Union[str, List[str]]] = None,
+        camera_view=None,
+        visualize_ops: bool = True,
         **kwargs,
     ) -> Image.Image:
-        """Interactive rendering: apply navigation interaction to current camera and render.
+        """Multi-turn interactive rendering. Mirrors __call__ signature.
 
-        This does NOT run model inference. It uses the cached point cloud from a
-        previous __call__() and applies the interaction delta to move the camera.
+        On the first call, provide images/videos to trigger reconstruction.
+        On subsequent calls, omit images — the cached scene is reused and
+        the camera state accumulates across turns.
+
+        Internally uses operator.get_interaction() + process_interaction()
+        exactly as Pi3Pipeline.stream() does, so camera movement is consistent.
+
+        Args:
+            images / videos / image_path / video_path: same as __call__.
+                Only needed on the first call to build the scene.
+            task_type: kept for signature parity with __call__.
+            interactions: str or list of str navigation signals for this turn,
+                e.g. "forward" or ["left", "camera_r"]. Passed together to
+                get_interaction() + process_interaction(). Camera state persists
+                to the next stream() call.
+            camera_view: used when interactions is None. Same as __call__.
+            visualize_ops: kept for signature parity with __call__.
+
+        Returns:
+            PIL.Image — rendered view after applying this turn's interactions.
+
+        Typical usage::
+
+            # Turn 0: reconstruct, get initial view
+            frame = pipeline.stream(images="scene.jpg")
+
+            # Turn 1+: navigate, camera accumulates
+            frame = pipeline.stream(interactions="forward")
+            frame = pipeline.stream(interactions=["left", "camera_r"])
         """
-        res = result or self._cached_result
-        if res is None:
-            raise RuntimeError("No result available. Run reconstruction first via __call__().")
+        visual_input = videos or video_path or images or image_path
 
+        # ── New input: run reconstruction ──
+        if visual_input is not None:
+            print("--- Stream: reconstructing scene ---")
+            self._run_inference(visual_input, **kwargs)
+
+        if self._cached_result is None:
+            raise RuntimeError(
+                "No scene available. Provide images/videos on the first stream() call."
+            )
+
+        # ── Initialise camera if needed ──
         if self._current_camera is None:
-            if res.camera_params:
-                self._current_camera = np.array(res.camera_params[0]["camera_to_world"])
-            else:
-                raise RuntimeError("No camera parameters available.")
+            if not self._cached_result.camera_params:
+                raise RuntimeError("No camera parameters available in cached result.")
+            self._current_camera = np.array(
+                self._cached_result.camera_params[0]["camera_to_world"]
+            )
 
-        if isinstance(interaction_signal, str):
-            interaction_signal = [interaction_signal]
+        # ── No interactions: render current view ──
+        if interactions is None:
+            return self.render_view(
+                result=self._cached_result,
+                camera_view=camera_view,
+                camera_to_world=self._current_camera,
+            )
 
-        self.operator.get_interaction(interaction_signal)
+        # ── Apply interactions: get_interaction + process_interaction (same as Pi3) ──
+        if isinstance(interactions, str):
+            interactions = [interactions]
+
+        print(f"[DEBUG] interactions: {interactions}")
+        print(f"[DEBUG] camera before: {self._current_camera[:3, 3]}")  # 只打位移部分
+
+        self.operator.get_interaction(interactions)
         delta = self.operator.process_interaction()
 
-        self._current_camera = _apply_camera_delta(self._current_camera, delta)
+        print(f"[DEBUG] delta: {delta}")
 
-        return self.render_view(result=res, camera_to_world=self._current_camera)
+        self._current_camera = _apply_camera_delta(self._current_camera, delta)
+        print(f"[DEBUG] camera after:  {self._current_camera[:3, 3]}")
+
+
+        return self.render_view(
+            result=self._cached_result,
+            camera_to_world=self._current_camera,
+        )
+
+
+__all__ = ["LoGeRPipeline", "LoGeRResult"]
