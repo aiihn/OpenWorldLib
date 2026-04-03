@@ -347,6 +347,10 @@
 - **WorldGrow** · [[Paper]](https://arxiv.org/abs/2510.21682) [[Code]](https://github.com/world-grow/WorldGrow)
 </details>
 
+#### Joint-Embedding Predictive Architecture (JEPA)
+
+
+
 ---
 
 ### World Model - Memory
